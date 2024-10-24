@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creazione Form Eucaristia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Creazione Form Eucaristia</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flashes">
+              {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('create_eucaristia') }}" method="post">
+            <!-- Prima Lettura -->
+            <h2>Prima Lettura</h2>
+            <label for="prima_riferimento">Riferimenti:</label>
+            <textarea name="prima_riferimento" id="prima_riferimento" rows="3" placeholder="Inserisci i riferimenti della prima lettura" required></textarea>
+
+            <label for="prima_lettura">Nome della Persona per Lettura:</label>
+            <input type="text" name="prima_lettura" id="prima_lettura" placeholder="Nome e Cognome" required>
+
+            <!-- Seconda Lettura -->
+            <h2>Seconda Lettura</h2>
+            <label for="seconda_riferimento">Riferimenti:</label>
+            <textarea name="seconda_riferimento" id="seconda_riferimento" rows="3" placeholder="Inserisci i riferimenti della seconda lettura" required></textarea>
+
+            <label for="seconda_lettura">Nome della Persona per Lettura:</label>
+            <input type="text" name="seconda_lettura" id="seconda_lettura" placeholder="Nome e Cognome" required>
+
+            <!-- Vangelo -->
+            <h2>Vangelo</h2>
+            <label for="vangelo_riferimento">Riferimenti:</label>
+            <textarea name="vangelo_riferimento" id="vangelo_riferimento" rows="3" placeholder="Inserisci i riferimenti del vangelo" required></textarea>
+
+            <label for="vangelo_lettura">Nome della Persona per Lettura:</label>
+            <input type="text" name="vangelo_lettura" id="vangelo_lettura" placeholder="Nome e Cognome" required>
+
+            <!-- Ambientale -->
+            <h2>Ambientale</h2>
+            <label for="ambientale">Nome della Persona per Ambientale:</label>
+            <input type="text" name="ambientale" id="ambientale" placeholder="Nome e Cognome" required>
+
+            <!-- Preghiere -->
+            <h2>Preghiere dei Fedeli</h2>
+            <label for="preghiere">Nome della Persona per Preghiere:</label>
+            <input type="text" name="preghiere" id="preghiere" placeholder="Nome e Cognome" required>
+
+            <!-- Pulsanti di Azione -->
+            <div class="button-group">
+                <button type="submit" class="pdf">Genera Documento</button>
+                <a href="{{ url_for('index') }}" class="button">Torna Indietro</a>
+            </div>
+        </form>
+
+        <div class="footer">
+            <p>&copy; 2024 - Calendario Gruppi</p>
+        </div>
+    </div>
+</body>
+
+</html>

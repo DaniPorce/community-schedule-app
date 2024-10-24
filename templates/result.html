@@ -1,0 +1,64 @@
+<!-- templates/result.html -->
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risultato Calendario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Calendario Generato</h1>
+
+        {% if avvisi %}
+            <div class="avvisi">
+                <h2>Avvisi:</h2>
+                <ul>
+                    {% for avviso in avvisi %}
+                        <li>{{ avviso }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Evento</th>
+                    <th>Gruppo</th>
+                    <th>Partecipanti</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data_evento, (gruppo, evento) in assegnazioni.items() %}
+                    <tr>
+                        <td>{{ data_evento.strftime('%A %d %B %Y') }}</td>
+                        <td>{{ evento }}</td>
+                        <td>
+                            {% for _, persona in gruppo.iterrows() %}
+                                {{ persona['Nome'] }} {{ persona['Cognome'] }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {{ ', '.join([f"{persona['Nome']} {persona['Cognome']}" for _, persona in gruppo.iterrows()]) }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="button-group">
+            <a href="{{ url_for('index') }}" class="button">Torna Indietro</a>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 - Calendario Gruppi</p>
+        </div>
+    </div>
+</body>
+
+</html>

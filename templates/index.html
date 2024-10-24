@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Schedule App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Benvenuto alla Community Schedule App</h1>
+        <p>Scegli una delle opzioni seguenti:</p>
+
+        <div class="button-group">
+            <a href="{{ url_for('create_groups') }}" class="button">Genera Calendario Gruppi</a>
+            <a href="{{ url_for('create_preparation') }}" class="button">Creazione Form Preparazione</a>
+            <a href="{{ url_for('create_eucaristia') }}" class="button">Creazione Eucaristia</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 - Community Schedule App</p>
+    </div>
+</body>
+</html>

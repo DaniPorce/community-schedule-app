@@ -1,0 +1,58 @@
+<!-- templates/create_groups.html -->
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genera Calendario Gruppi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Genera Calendario Gruppi</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flashes">
+              {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('create_groups') }}" method="post" enctype="multipart/form-data">
+            <label for="file">Carica File Excel (.xlsx):</label>
+            <input type="file" name="file" id="file" accept=".xlsx" required>
+
+            <label for="mese">Mese:</label>
+            <select name="mese" id="mese" required>
+                {% for m in range(1, 13) %}
+                    <option value="{{ m }}">{{ calendar.month_name[m] }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="anno">Anno:</label>
+            <input type="number" name="anno" id="anno" min="1900" max="2100" required>
+
+            <label for="giorno_personalizzato">Giorno Personalizzato (0=Monday, 6=Sunday):</label>
+            <input type="number" name="giorno_personalizzato" id="giorno_personalizzato" min="0" max="6" required>
+
+            <label for="avvisi">Avvisi (uno per riga):</label>
+            <textarea name="avvisi" id="avvisi" rows="3" placeholder="Inserisci gli avvisi, uno per riga"></textarea>
+
+            <div class="button-group">
+                <button type="submit" name="submit_button" value="PDF" class="pdf">Genera PDF</button>
+                <button type="submit" name="submit_button" value="HTML" class="button">Genera HTML</button>
+            </div>
+        </form>
+
+        <div class="footer">
+            <p>&copy; 2024 - Calendario Gruppi</p>
+        </div>
+    </div>
+</body>
+
+</html>
